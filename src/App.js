@@ -1,23 +1,21 @@
-import logo from './logo.svg';
 import './App.css';
+// Components
+import Navbar from './components/Navbar/Navbar';
+import Router from './Routes/Router'
+
+import { AuthContextProvider } from './context/AuthContext';
+
+// TODO - CSS on repeat elements/classes affecting all elements and classes.
+//        Need to install CSS Modules or something similar.
 
 function App() {
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+    <AuthContextProvider>
+      <Navbar />
+      <Router />
+    </AuthContextProvider>
     </div>
   );
 }

@@ -1,0 +1,159 @@
+.mainContainer {
+        display: flex;
+        flex-direction: column;
+        margin-left: 10px;
+        margin-right: 10px;
+        align-items: center;
+}
+
+.titleContainer {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    text-align: left;
+}
+
+.posterContainer {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.genreContainer {
+    width: inherit;
+}
+.genreMapContainer {
+    display: inline;
+    
+}
+
+.ratingAndCardContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.genreButton {
+    margin-top: 5px;
+    margin-right: 5px;
+}
+
+h1, p {
+    color: white;
+}
+
+.poster {
+    max-height: 400px;
+    max-width: 280px;
+}
+
+.cardDetails {
+    min-width: 165px !important;
+    margin-top: 5px;
+    display: flex;
+}
+
+.cardPlot {
+    max-width: 80%;
+    margin-top: 10px;
+}
+
+.fullPlotButton {
+    padding: 3px 6px !important;
+}
+
+/* COMMENTS */
+.movieCommentContainer {
+    width: 100%;
+}
+
+.commentContainer {
+    width: 90%;
+}
+
+.commentBox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: black;
+}
+
+.commentBox form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 80%;
+}
+
+.commentTextInput {
+    width: 100%;
+    height: 80px;
+}
+
+.commentForm {
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.commentForm .btn {
+    max-width: 150px;
+}
+
+.commentText {
+    color: black;
+}
+/* END OF COMMENTS */
+
+.loginLink {
+    color: blue;
+}
+
+.loginLink:hover {
+    cursor: pointer;
+}
+
+.paginationNumberContainer {
+    color: white;
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    gap: .5rem;
+}
+
+@media only screen and (min-width: 800px) {
+    .titleContainer{
+        width: 50%;
+    }
+
+    .posterContainer {
+        justify-content: space-between;
+        flex-direction: row;
+        align-items: flex-end;
+        width: 50%;
+    }
+
+    .mainContainer {
+        margin-left: 0;
+    }
+
+    .genreContainer {
+        width: 50%;
+    }
+
+    .ratingAndCardContainer {
+        margin-top: 0;
+    }
+
+    .cardPlot {
+        max-width: 50%;
+    }
+    .cardDetails {
+        margin-left: 20px;
+    }
+
+    .movieCommentContainer {
+        width: 80%;
+    }
+  }

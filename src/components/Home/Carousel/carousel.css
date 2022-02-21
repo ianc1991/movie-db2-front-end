@@ -1,0 +1,28 @@
+.carousel-item img {
+    height: 50vh;
+    object-fit: contain;
+    object-position: center;
+}
+
+
+.container {
+    text-align: center;
+}
+
+.carousel-inner{
+    background-color: black;
+}
+
+.carousel-inner:hover {
+    cursor: pointer;
+}
+
+.carousel {
+    margin: 0 auto;
+    width: 50%;
+}
+
+.glowSign {
+    max-width: 50%;
+    min-width: 300px;
+}
