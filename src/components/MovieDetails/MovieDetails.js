@@ -130,8 +130,8 @@ const MovieDetails = () => {
     return (
         <div className='mainContainer'>
             <div className='titleContainer'>
-                <h1>{movieDetails.title}</h1>
-                <p> 
+                <h1 className='movieDetailsH1'>{movieDetails.title}</h1>
+                <p className='movieDetailsP'> 
                     {movieDetails.year !== undefined && movieDetails.year + ' |'}
                     {movieDetails.rated !== undefined && ' ' + movieDetails.rated + ' |'}
                     {movieDetails.runtime !== undefined && ' ' + movieDetails.runtime + 'm'}
@@ -141,25 +141,25 @@ const MovieDetails = () => {
                 <img src={movieDetails.poster || noImageAvailablePicture} className='poster' onError={handleImgError} alt='Movie Poster'></img>
                 <div className='ratingAndCardContainer'>
                     <FontAwesomeIcon icon={faImdb} inverse className='fa-5x' />
-                    <p><FontAwesomeIcon icon={faStar} inverse /> {movieDetails.imdb.rating}/10 • {movieDetails.imdb.votes} votes</p>
+                    <p className='movieDetailsP'><FontAwesomeIcon icon={faStar} inverse /> {movieDetails.imdb.rating}/10 • {movieDetails.imdb.votes} votes</p>
                     <div className="cardDetails bg-secondary">
                         <div className="card-body">
                             <h5 className="card-title">Cast</h5>
-                            <p className="card-text">{movieDetails.cast.map((castMember, i) => (
+                            <p className="card-text movieDetailsP">{movieDetails.cast.map((castMember, i) => (
                                 // only adds ', ' if not the last item in the array or there isn't only one item
                                 i === movieDetails.cast.length - 1 || movieDetails.cast.length === 1 ? castMember : castMember + ', '
                             ))}</p>
                             <hr></hr>
                             <h5 className="card-title">Release Date</h5>
-                            <p className="card-text">{movieDetails.released ? movieDetails.released.substring(0, 10): "Not found"}</p>
+                            <p className="card-text movieDetailsP">{movieDetails.released ? movieDetails.released.substring(0, 10): "Not found"}</p>
                             <hr></hr>
                             <h5 className="card-title">Director(s)</h5>
-                            <p className="card-text">{movieDetails.directors.map((director, i) => (
+                            <p className="card-text movieDetailsP">{movieDetails.directors.map((director, i) => (
                                 i === movieDetails.directors.length - 1 || movieDetails.directors.length === 1 ? director : director + ', '
                             ))}</p>
                             <hr></hr>
                             <h5 className="card-title">Writer(s)</h5>
-                            <p className="card-text">{movieDetails.writers.map((writer, i) => (
+                            <p className="card-text movieDetailsP">{movieDetails.writers.map((writer, i) => (
                                 i === movieDetails.writers.length - 1 || movieDetails.writers.length === 1 ? writer : writer + ', '
                             ))}</p>
                         </div>
@@ -180,11 +180,11 @@ const MovieDetails = () => {
                 <div className="card-body">
                         {
                             fullPlotToggled ? 
-                                <p>
+                                <p className='movieDetailsP'>
                                     {movieDetails.fullplot}
                                 </p>
                             :
-                                <p>
+                                <p className='movieDetailsP'>
                                     {movieDetails.plot + ' '} 
                                 </p>
                         }
@@ -196,7 +196,7 @@ const MovieDetails = () => {
             </div>
             <div className='movieCommentContainer'>
                 <div className='commentBox'>
-                    <h1>User Comments <FontAwesomeIcon icon={faCommentDots}/></h1>
+                    <h1 className='movieDetailsH1'>User Comments <FontAwesomeIcon icon={faCommentDots}/></h1>
                     { loggedIn === true ? (
                         <form className='commentForm' onSubmit={leaveComment}>
                             <textarea 
@@ -214,7 +214,7 @@ const MovieDetails = () => {
                     )
                     :
                     (
-                        <p><a className='loginLink' onClick={() => navigate('/login')}>LOGIN</a> TO POST COMMENTS</p>
+                        <p className='movieDetailsP'><a className='loginLink' onClick={() => navigate('/login')}>LOGIN</a> TO POST COMMENTS</p>
                     )}
                     <PageNumbersElement/>
                     { movieComments.length >= 1 ? (
@@ -224,7 +224,7 @@ const MovieDetails = () => {
                                     <div className="card-body">
                                         <h5 className="card-title">{comment.name}</h5>
                                         <hr></hr>
-                                        <p className="card-text commentText">{comment.text}</p>
+                                        <p className="card-text commentText movieDetailsP">{comment.text}</p>
                                         <hr></hr>
                                     </div>
                                 </div>
@@ -233,7 +233,7 @@ const MovieDetails = () => {
                     )
                     :
                     (
-                        <p className='commentText'>Be the first to comment on this movie!</p>
+                        <p className='movieDetailsP'>Be the first to comment on this movie!</p>
                     )}
                     <PageNumbersElement/>
                 </div>

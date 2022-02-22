@@ -40,7 +40,7 @@
     margin-right: 5px;
 }
 
-h1, p {
+.movieDetailsP, .movieDetailsH1 {
     color: white;
 }
 

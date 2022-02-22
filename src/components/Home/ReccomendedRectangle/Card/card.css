@@ -1,0 +1,21 @@
+.mainCardContainer {
+    all: unset;
+    display: flex;
+    color: white;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-bottom: 3rem;
+}
+
+.cardCard {
+    min-width: 185px;
+    background-color: rgb(26 26 26) !important;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+}
+
+.cardImg {
+    max-width: 185px;
+    height: auto;
+}
