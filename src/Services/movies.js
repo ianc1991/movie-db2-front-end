@@ -32,8 +32,9 @@ class MovieDataService {
     }
 
     // Get by search text
-    getMoviesBySearchText(searchText) {
-        return http.get(`/allmovies/${searchText}`)
+    getMoviesBySearchText(searchText, pageNumber) {
+        if (pageNumber) return http.get(`/allmovies/${searchText}/${pageNumber}`);
+        return http.get(`/allmovies/${searchText}`);
     }
 
     // For movie list pagination (incomplete)

@@ -1,8 +1,9 @@
 import './movieList.css';
 import { useState, useEffect } from "react";
 import movieDataSrv from '../../Services/movies';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { trackPromise } from 'react-promise-tracker';
+import Pagination from "react-js-pagination";
 //Assets
 import noImageAvailablePicture from '../../assets/noImage.png';
 import nothingFoundImage from '../../assets/noResultFound.webp';
@@ -21,41 +22,26 @@ const MovieList = () => {
     const navigate = useNavigate();
     
     const [movieList, setMovieList] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
+
 
     // Get movie list and set it to 'movieList' state.
+    const retrieveMovieListBySearch = () => {
+        trackPromise(
+            movieDataSrv.getMoviesBySearchText(searchParam, currentPage)
+                .then((response) => {
+                    setMovieList(response.data.searchedMovies);
+                    setTotalMovies(response.data.totalMovies);
+                })
+                .catch(e => {
+                    console.log(e);
+                })
+        )
+    }
+
     useEffect(() => {
-        const retrieveMovieListBySearch = () => {
-            trackPromise(
-                movieDataSrv.getMoviesBySearchText(searchParam)
-                    .then(response => {
-                        setMovieList(response.data);
-                    })
-                    .catch(e => {
-                        console.log(e);
-                    })
-            )
-        }
-
-        const retrieveNewMovies = () => {
-            trackPromise(
-                movieDataSrv.getNew()
-                    .then(response => {
-                        setMovieList(response.data);
-                    })
-                    .catch(e => {
-                        console.log(e);
-                    })
-            )
-        }
-        
-        if(searchParam != null){
             retrieveMovieListBySearch();
-        } else {
-            retrieveNewMovies();
-        }
-            
-    }, [searchParam]); // Dependency array. useEffect() will run when variable changes.
-
+    }, [searchParam, currentPage]); // Dependency array. useEffect() will run when variable changes.
 
 
     // If image 404
@@ -63,36 +49,28 @@ const MovieList = () => {
         e.target.src = noImageAvailablePicture
     }
 
-    // T0DO - Finish this
-    // View More button
-    const [viewMoreClicked, setViewMoreClicked] = useState(false);
+    // Paginate comments {
+        const [totalMovies, setTotalMovies] = useState(0);
 
-    const handleViewMoreButton = () => {
-        setViewMoreClicked(true)
-    }
-
-    useEffect(() => {
-        if (viewMoreClicked) {
-            let lastItem = movieList[movieList.length - 1];
-            const retrieveNextPage = () => {
-                trackPromise(
-                    movieDataSrv.getNextPage(lastItem._id)
-                        .then(response => {
-                            setMovieList(response.data);
-                        })
-                        .catch(e => {
-                            console.log(e);
-                        })
-                )
-            }
-
-            retrieveNextPage();
-            setViewMoreClicked(false);
+        const pageNumberClicked = (pageNumber) => {
+            setCurrentPage(pageNumber);
         }
-        // TODO - movieList becomes missing dependency if not included? 
-    },[viewMoreClicked, movieList]);
 
-    // END OF VIEW MORE BUTTON
+        // Page element
+        // TODO - Figure out how to make this responsive
+        const PageNumbersElement = () => { return (
+            <Pagination
+                activePage={currentPage}
+                totalItemsCount={totalMovies}
+                // Backend numbers need to be adjusted as well if this is changed
+                itemsCountPerPage={10}
+                onChange={pageNumberClicked}
+                // Bootstrap props
+                itemClass="page-item"
+                linkClass="page-link"
+            />
+        )}
+    // }
 
 
   return (
@@ -103,7 +81,6 @@ const MovieList = () => {
         <table className="table movieListTable table-dark table-striped table-hover">
             <thead>
                 <tr>
-                <th scope="col">#</th>
                 <th scope="col">Title</th>
                 <th scope="col">IMDb Rating</th>
                 <th scope="col">Release Year</th>
@@ -114,7 +91,6 @@ const MovieList = () => {
                 {
                     movieList.map((movie, i) => (
                         <tr className='movieListTableRow' key={i} onClick={() => navigate(`/moviedetails?id=${movie._id}`)}>
-                            <th scope="row">{i + 1}</th>
                             <td><div className='imageTitleContainer'><img className='moviePoster' src={movie.poster || noImageAvailablePicture} onError={handleImgError} alt='Movie Poster'></img> {movie.title}</div></td>
                             <td><div className='imageTitleContainer'>
                                 <p><FontAwesomeIcon icon={faStar} inverse /> {movie.imdb.rating}</p></div>
@@ -126,6 +102,7 @@ const MovieList = () => {
                 }
             </tbody>
         </table>
+        <PageNumbersElement/>
     </div>
     )
 }

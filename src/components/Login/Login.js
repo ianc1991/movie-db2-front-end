@@ -1,13 +1,17 @@
 import './login.css'
-import AuthService from '../../Services/Users/auth';
 import React, { useContext } from 'react';
-import Register from '../Register/Register';
 import { useState } from 'react';
-import AuthContext from '../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import AuthService from '../../Services/Users/auth';
+import AuthContext from '../../context/AuthContext';
+import Register from '../Register/Register';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
+
+
 
 const Login = () => {
-  const [email, setEmail] = useState("");
+  const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
 
   // Check if logged in
@@ -20,7 +24,7 @@ const Login = () => {
 
     try {
         const loginData = {
-          email,
+          userName,
           password
         };
 
@@ -36,6 +40,9 @@ const Login = () => {
   return (
       <div className='loginScreenContainer'>
         <div className='loginFormContainer bg-dark'>
+          <div className='loginIconContainer'>
+            <FontAwesomeIcon icon={faUser} className='fa-3x' />
+          </div>
           <h1>Login</h1>
           <form 
             className='loginFormElement' 
@@ -43,8 +50,8 @@ const Login = () => {
           >
             <input 
               type='text'
-              placeholder="Email"
-              onChange={(e) => setEmail(e.target.value)}
+              placeholder="User name"
+              onChange={(e) => setUserName(e.target.value)}
               required
             />
             <input 

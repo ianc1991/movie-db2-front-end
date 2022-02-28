@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AuthContext from '../../context/AuthContext';
 import LogoutBtn from '../Logout/LogoutBtn';
@@ -12,9 +12,16 @@ const Navbar = () => {
     // Reads value from AuthContext to check if user is logged in
     const {loggedIn} = useContext(AuthContext);
 
-    // TODO - Replace this with useState
-    const handleSearchSubmit = () => {
-        navigate('/movielist')
+    
+    const [searchText, setSearchText] = useState("");
+
+    const handleSearchText = (e) => {
+        setSearchText(e.target.value);
+    }
+
+    const handleSearchSubmit = (e) => {
+        e.preventDefault();
+        navigate(`/movielist?s=${searchText}`)
     }
 
     return (
@@ -61,7 +68,7 @@ const Navbar = () => {
                                 required
                                 placeholder="Search" 
                                 aria-label="Search"
-                                //onChange={handleSearchText}
+                                onChange={handleSearchText}
                                 name='s'
                             />
                             <button 

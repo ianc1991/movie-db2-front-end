@@ -1,9 +1,9 @@
 import http from './httpAuth';
 
 class AuthService {
-    login({email, password}) {
+    login({userName, password}) {
         return http.post('/login', {
-            email,
+            userName,
             password
         },
         {
@@ -11,10 +11,9 @@ class AuthService {
         });
     }
 
-    register({name, email, password}) {
+    register({userName, password}) {
         return http.post('/register', {
-            name,
-            email,
+            userName,
             password
         },
         {

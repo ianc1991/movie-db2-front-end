@@ -80,6 +80,7 @@ const MovieDetails = () => {
         }
 
         // Logic for displaying comments
+        // TODO - Could paginate from MongoDB like we do with moviesList
         const indexOfLastComment = currentPage * commentsPerPage;
         const indexOfFirstComment = indexOfLastComment - commentsPerPage;
         const currentComments = movieComments.slice(indexOfFirstComment, indexOfLastComment);
@@ -118,7 +119,7 @@ const MovieDetails = () => {
         if (validToken){
             movieDataSrv.postMovieComment(userComment, id);
         } else {
-            console.log('Something went wrong when posting comment')
+            alert('Something went wrong when posting comment')
         }
     }
 

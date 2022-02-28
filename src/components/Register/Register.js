@@ -3,10 +3,13 @@ import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AuthContext from "../../context/AuthContext";
 import AuthService from "../../Services/Users/auth";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUserPlus } from '@fortawesome/free-solid-svg-icons';
+
+
 // TODO - Validation etc.
 const Register = () => {
-    const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
+    const [userName, setName] = useState("");
     const [password, setPassword] = useState("");
     const [passwordVerify, setPasswordVerify] = useState("");
 
@@ -20,8 +23,7 @@ const Register = () => {
 
         try {
             const registerData = {
-                name,
-                email, 
+                userName,
                 password
             };
 
@@ -37,13 +39,13 @@ const Register = () => {
   return (
       <div className="registerScreenContainer">
           <div className="bg-dark registerFormContainer">
-            <h1>Register a new account</h1>
+            <div className='loginIconContainer'>
+                <FontAwesomeIcon icon={faUserPlus} className='fa-3x' />
+            </div>
+            <h1>Register new account</h1>
             <form onSubmit={register} className='registerFormElement'>
-                <input type='text' placeholder='Name' required
+                <input type='text' placeholder='User name' required
                     onChange={(e) => setName(e.target.value)}
-                />
-                <input type='email' placeholder='Email' required
-                    onChange={(e) => setEmail(e.target.value)}
                 />
                 <input type='password' placeholder='Password' required
                     onChange={(e) => setPassword(e.target.value)}
