@@ -4,11 +4,18 @@
 }
 
 body {
-    background-image: url('./assets/background.jpg');
+    background-color: black !important;
     min-height: 100%;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-position: center;
-    background-size: cover;
+    
     font-family: 'Oswald', sans-serif !important;
+}
+
+@media screen and (min-width: 800px) {
+    body {
+        background-image: url('./assets/background.webp');
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-position: center;
+        background-size: cover;
+    }
 }

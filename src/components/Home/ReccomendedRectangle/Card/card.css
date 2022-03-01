@@ -2,9 +2,11 @@
     all: unset;
     display: flex;
     color: white;
-    justify-content: space-between;
+    justify-content: space-around;
+    align-items: center;
     flex-wrap: wrap;
     margin-bottom: 3rem;
+    min-height: 375px;
 }
 
 .cardCard {

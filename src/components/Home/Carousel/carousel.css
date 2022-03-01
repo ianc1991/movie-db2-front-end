@@ -5,8 +5,9 @@
 }
 
 
-.container {
+.mainCarouselcontainer {
     text-align: center;
+    min-height: 611px;
 }
 
 .carousel-inner{

@@ -15,6 +15,11 @@
 .imageTitleContainer p {
     margin: 0;
 }
+
+.titleRow {
+    width: 240px;
+}
+
 .moviePoster {
     max-height: 100px;
     max-width: 100px;
@@ -31,5 +36,9 @@
     .movieListTable {
         font-size: 16px;
         max-width: 900px;
+    }
+
+    .titleRow {
+        width: 400px;
     }
 }

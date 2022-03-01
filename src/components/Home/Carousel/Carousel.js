@@ -33,7 +33,7 @@ const Carousel = () => {
     };
 
     return (
-        <div className='container'>
+        <div className='mainCarouselcontainer'>
             <img className='glowSign' src={glowSign} alt='New Releases'></img>
             <div id="carouselExampleIndicators" className="carousel slide" data-bs-interval="false" data-bs-ride="carousel">
                 <ol className="carousel-indicators">

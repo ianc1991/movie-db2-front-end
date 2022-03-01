@@ -91,7 +91,7 @@ const MovieList = () => {
                 {
                     movieList.map((movie, i) => (
                         <tr className='movieListTableRow' key={i} onClick={() => navigate(`/moviedetails?id=${movie._id}`)}>
-                            <td><div className='imageTitleContainer'><img className='moviePoster' src={movie.poster || noImageAvailablePicture} onError={handleImgError} alt='Movie Poster'></img> {movie.title}</div></td>
+                            <td className='titleRow'><div className='imageTitleContainer'><img className='moviePoster' src={movie.poster || noImageAvailablePicture} onError={handleImgError} alt='Movie Poster'></img> {movie.title}</div></td>
                             <td><div className='imageTitleContainer'>
                                 <p><FontAwesomeIcon icon={faStar} inverse /> {movie.imdb.rating}</p></div>
                             </td>
