@@ -20,11 +20,14 @@ const Carousel = () => {
         retrieveNewMovies();
     }, []);
 
+    // Putting string in getNew wasn't working...
+    const five = "5";
+
     const retrieveNewMovies = () => {
         trackPromise(
-            movieDataSrv.getNew()
+            movieDataSrv.getNew(five)
                 .then(response => {
-                    setNewMovies(response.data);
+                    setNewMovies(response.data.sortedMoviesByDate);
                 })
                 .catch(e => {
                     console.log(e);

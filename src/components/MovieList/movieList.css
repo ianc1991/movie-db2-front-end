@@ -23,6 +23,8 @@
 .moviePoster {
     max-height: 100px;
     max-width: 100px;
+    min-height: 80px;
+    min-width: 80px;
 }
 .movieListTable {
     font-size: 12px;
@@ -30,6 +32,12 @@
 
 .movieListTableRow:hover {
     cursor: pointer;
+}
+
+.movieListLoadingIndicatorContainer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
 }
 
 @media only screen and (min-width: 800px) {

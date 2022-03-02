@@ -1,9 +1,10 @@
 import './movieList.css';
 import { useState, useEffect } from "react";
 import movieDataSrv from '../../Services/movies';
-import { useNavigate, useSearchParams } from 'react-router-dom';
-import { trackPromise } from 'react-promise-tracker';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { trackPromise, usePromiseTracker } from 'react-promise-tracker';
 import Pagination from "react-js-pagination";
+import Loading from '../Loading/Loading';
 //Assets
 import noImageAvailablePicture from '../../assets/noImage.png';
 import nothingFoundImage from '../../assets/noResultFound.webp';
@@ -15,9 +16,10 @@ import { faStar } from '@fortawesome/free-solid-svg-icons';
 
 const MovieList = () => {
     // Get search parameter from url
-    const queryString = window.location.search;
-    const urlParams = new URLSearchParams(queryString);
-    const searchParam = urlParams.get('s');
+    
+    const search = useLocation().search;
+    const searchParam = new URLSearchParams(search).get('s');
+    const filter = new URLSearchParams(search).get('filter');
 
     const navigate = useNavigate();
     
@@ -39,9 +41,24 @@ const MovieList = () => {
         )
     }
 
+    // Get movie list by filter
+    const retrieveMovieListByFilter = () => {
+        trackPromise(
+            movieDataSrv.getMoviesByFilter(filter, currentPage)
+                .then((response) => {
+                    setMovieList(response.data.searchedMovies);
+                    setTotalMovies(response.data.totalMovies);
+                })
+                .catch(e => {
+                    console.log(e);
+                })
+        )
+    }
+
     useEffect(() => {
-            retrieveMovieListBySearch();
-    }, [searchParam, currentPage]); // Dependency array. useEffect() will run when variable changes.
+            if (searchParam) retrieveMovieListBySearch();
+            if (filter) retrieveMovieListByFilter();
+    }, [searchParam, currentPage, filter]); // Dependency array. useEffect() will run when variable changes.
 
 
     // If image 404
@@ -53,6 +70,7 @@ const MovieList = () => {
         const [totalMovies, setTotalMovies] = useState(0);
 
         const pageNumberClicked = (pageNumber) => {
+            setMovieList([]);
             setCurrentPage(pageNumber);
         }
 
@@ -72,11 +90,18 @@ const MovieList = () => {
         )}
     // }
 
+    const LoadingIndicator = props => {
+        const { promiseInProgress } = usePromiseTracker();
+        return (
+          promiseInProgress && 
+          <Loading />
+        );  
+      }
+
 
   return (
     <div className='mainMovieListContainer'>
         <div className='filterContainer'>
-
         </div>
         <table className="table movieListTable table-dark table-striped table-hover">
             <thead>
@@ -91,7 +116,7 @@ const MovieList = () => {
                 {
                     movieList.map((movie, i) => (
                         <tr className='movieListTableRow' key={i} onClick={() => navigate(`/moviedetails?id=${movie._id}`)}>
-                            <td className='titleRow'><div className='imageTitleContainer'><img className='moviePoster' src={movie.poster || noImageAvailablePicture} onError={handleImgError} alt='Movie Poster'></img> {movie.title}</div></td>
+                            <td className='titleRow'><div className='imageTitleContainer'><img className='moviePoster' src={movie.poster || noImageAvailablePicture} onError={handleImgError} alt={movie.title + ' Poster'}></img> {movie.title}</div></td>
                             <td><div className='imageTitleContainer'>
                                 <p><FontAwesomeIcon icon={faStar} inverse /> {movie.imdb.rating}</p></div>
                             </td>
@@ -102,6 +127,9 @@ const MovieList = () => {
                 }
             </tbody>
         </table>
+        <div className="movieListLoadingIndicatorContainer">
+            <LoadingIndicator />
+        </div>
         <PageNumbersElement/>
     </div>
     )

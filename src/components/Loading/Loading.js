@@ -6,7 +6,7 @@ const Loading = () => {
 
   return (
     <div className="loadingContainer">
-        <h1 className='loadingTitle'>Loading...<FontAwesomeIcon icon={faSpinner} pulse /></h1>
+        <h1 className='loadingTitle'><FontAwesomeIcon icon={faSpinner} pulse /></h1>
     </div>
   )
 };

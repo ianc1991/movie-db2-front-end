@@ -1,14 +1,10 @@
 import http from './httpCommon';
 
+// TODO - Refactor
 class MovieDataService {
-    // Get all movies
-    getAll() {
-        return http.get('/allmovies')
-    }
-
-    // Get 5 newest movies
-    getNew() {
-        return http.get('/')
+    // Get new movies
+    getNew(maxreturn) {
+        return http.get(`/allmovies/${maxreturn}`)
     }
 
     // Get by Id
@@ -37,9 +33,10 @@ class MovieDataService {
         return http.get(`/allmovies/${searchText}`);
     }
 
-    // For movie list pagination (incomplete)
-    getNextPage(lastItem) {
-        return http.get(`/nextpage/${lastItem}`)
+    // Get by search text
+    getMoviesByFilter(filter, pageNumber) {
+        if (pageNumber) return http.get(`/allmovies/filter/${filter}/${pageNumber}`);
+        return http.get(`/allmovies/filter/${filter}`);
     }
 }
 

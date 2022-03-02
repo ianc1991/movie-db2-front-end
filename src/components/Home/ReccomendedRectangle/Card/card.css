@@ -6,18 +6,14 @@
     align-items: center;
     flex-wrap: wrap;
     margin-bottom: 3rem;
-    min-height: 375px;
+    min-height: 370px;
 }
 
 .cardCard {
-    min-width: 185px;
+    min-height: 350px;
+    width: 185px;
     background-color: rgb(26 26 26) !important;
     align-items: center;
     text-align: center;
     cursor: pointer;
-}
-
-.cardImg {
-    max-width: 185px;
-    height: auto;
 }

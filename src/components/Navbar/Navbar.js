@@ -1,8 +1,8 @@
+import './navbar.css'
 import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AuthContext from '../../context/AuthContext';
 import LogoutBtn from '../Logout/LogoutBtn';
-import './navbar.css'
 
 
 const Navbar = () => {
@@ -34,7 +34,7 @@ const Navbar = () => {
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                             <li className="nav-item">
-                                <span className="nav-link" aria-current="page" onClick={() => navigate(`/movielist`)}>New Releases</span>
+                                <span className="nav-link" aria-current="page" onClick={() => navigate(`/movielist?filter=new`)}>New Releases</span>
                             </li>
                             <li className="nav-item dropdown">
                                 <a className="nav-link dropdown-toggle" href="/" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -42,7 +42,7 @@ const Navbar = () => {
                                 </a>
                                 <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <li><a className="dropdown-item" href="/">View All</a></li>
-                                    <li><a className="dropdown-item" href="/">Top Rated</a></li>
+                                    <li><button className="dropdown-item" onClick={() => navigate(`/movielist?filter=toprated`)}>Top Rated</button></li>
                                     <li><a className="dropdown-item" href="/">Genres</a></li>
                                 </ul>
                             </li>
