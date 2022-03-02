@@ -41,9 +41,8 @@ const Navbar = () => {
                                 Movies
                                 </a>
                                 <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <li><a className="dropdown-item" href="/">View All</a></li>
+                                    <li><button className="dropdown-item" onClick={() => navigate(`/movielist?filter=all`)}>View All</button></li>
                                     <li><button className="dropdown-item" onClick={() => navigate(`/movielist?filter=toprated`)}>Top Rated</button></li>
-                                    <li><a className="dropdown-item" href="/">Genres</a></li>
                                 </ul>
                             </li>
                             {loggedIn === false && (

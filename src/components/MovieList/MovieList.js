@@ -29,6 +29,7 @@ const MovieList = () => {
 
     // Get movie list and set it to 'movieList' state.
     const retrieveMovieListBySearch = () => {
+        if (!searchParam) setCurrentPage(1);
         trackPromise(
             movieDataSrv.getMoviesBySearchText(searchParam, currentPage)
                 .then((response) => {
@@ -43,6 +44,7 @@ const MovieList = () => {
 
     // Get movie list by filter
     const retrieveMovieListByFilter = () => {
+        if (!filter) setCurrentPage(1);
         trackPromise(
             movieDataSrv.getMoviesByFilter(filter, currentPage)
                 .then((response) => {
@@ -56,9 +58,17 @@ const MovieList = () => {
     }
 
     useEffect(() => {
+      // prevents paginator from being left on a certain when url params change
+      setCurrentPage(1);    
+    }, [searchParam, filter])
+
+    // Get new list of movies when pages/params change
+    useEffect(() => {
             if (searchParam) retrieveMovieListBySearch();
             if (filter) retrieveMovieListByFilter();
     }, [searchParam, currentPage, filter]); // Dependency array. useEffect() will run when variable changes.
+
+    
 
 
     // If image 404
@@ -70,12 +80,13 @@ const MovieList = () => {
         const [totalMovies, setTotalMovies] = useState(0);
 
         const pageNumberClicked = (pageNumber) => {
+            // prevent setting movie list to empty array if clicking on same page.
+            if (currentPage === pageNumber) return;
             setMovieList([]);
             setCurrentPage(pageNumber);
         }
 
-        // Page element
-        // TODO - Figure out how to make this responsive
+        // TODO - make this responsive
         const PageNumbersElement = () => { return (
             <Pagination
                 activePage={currentPage}
@@ -83,6 +94,7 @@ const MovieList = () => {
                 // Backend numbers need to be adjusted as well if this is changed
                 itemsCountPerPage={10}
                 onChange={pageNumberClicked}
+                hideFirstLastPages={true}
                 // Bootstrap props
                 itemClass="page-item"
                 linkClass="page-link"

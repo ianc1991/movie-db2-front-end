@@ -77,7 +77,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: black;
+    background-color: #212529;
 }
 
 .commentBox form {
@@ -102,7 +102,7 @@
 }
 
 .commentText {
-    color: black;
+    color: white;
 }
 /* END OF COMMENTS */
 

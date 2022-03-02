@@ -117,7 +117,14 @@ const MovieDetails = () => {
         if (!loggedIn) return alert('You can only comment if you are logged in');
         const validToken = await auth.loggedIn();
         if (validToken){
-            movieDataSrv.postMovieComment(userComment, id);
+            if (userComment.trim() === '') return alert('Comment is blank');
+            console.log('hi...');
+            movieDataSrv.postMovieComment(userComment, id).then(response => {
+                console.log(response);
+            })
+            setUserComment('');
+            setMovieComments([]);
+            retrieveMovieComments();
         } else {
             alert('Something went wrong when posting comment')
         }
@@ -146,23 +153,32 @@ const MovieDetails = () => {
                     <div className="cardDetails bg-secondary">
                         <div className="card-body">
                             <h5 className="card-title">Cast</h5>
-                            <p className="card-text movieDetailsP">{movieDetails.cast.map((castMember, i) => (
-                                // only adds ', ' if not the last item in the array or there isn't only one item
-                                i === movieDetails.cast.length - 1 || movieDetails.cast.length === 1 ? castMember : castMember + ', '
-                            ))}</p>
+                            <p className="card-text movieDetailsP">{
+                                movieDetails.cast.map((castMember, i) => (
+                                    !movieDetails.cast ? '(n/a)' :
+                                    // only adds ', ' if not the last item in the array or there isn't only one item
+                                    i === movieDetails.cast.length - 1 || movieDetails.cast.length === 1 ? castMember : castMember + ', '
+                                ))}
+                            </p>
                             <hr></hr>
                             <h5 className="card-title">Release Date</h5>
                             <p className="card-text movieDetailsP">{movieDetails.released ? movieDetails.released.substring(0, 10): "Not found"}</p>
                             <hr></hr>
                             <h5 className="card-title">Director(s)</h5>
-                            <p className="card-text movieDetailsP">{movieDetails.directors.map((director, i) => (
-                                i === movieDetails.directors.length - 1 || movieDetails.directors.length === 1 ? director : director + ', '
-                            ))}</p>
+                            <p className="card-text movieDetailsP">{
+                                movieDetails.directors.map((director, i) => (
+                                    !movieDetails.directors ? '(n/a)' :
+                                    i === movieDetails.directors.length - 1 || movieDetails.directors.length === 1 ? director : director + ', '
+                                ))}
+                            </p>
                             <hr></hr>
                             <h5 className="card-title">Writer(s)</h5>
-                            <p className="card-text movieDetailsP">{movieDetails.writers.map((writer, i) => (
-                                i === movieDetails.writers.length - 1 || movieDetails.writers.length === 1 ? writer : writer + ', '
-                            ))}</p>
+                            <p className="card-text movieDetailsP">{
+                                !movieDetails.writers ? '(n/a)' :
+                                movieDetails.writers.map((writer, i) => (
+                                    i === movieDetails.writers.length - 1 || movieDetails.writers.length === 1 ? writer : writer + ', '
+                                ))}
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -189,9 +205,12 @@ const MovieDetails = () => {
                                     {movieDetails.plot + ' '} 
                                 </p>
                         }
-                        <button className="btn btn-outline-success fullPlotButton" onClick={toggleFullPlot}>
-                            {fullPlotToggled ? 'Hide full plot' : 'Read full plot'}
-                        </button>
+                        {
+                            movieDetails.fullplot != movieDetails.plot &&
+                            <button className="btn btn-outline-success fullPlotButton" onClick={toggleFullPlot}>
+                                {fullPlotToggled ? 'Hide full plot' : 'Read full plot'}
+                            </button>
+                        }
                         
                 </div>
             </div>
@@ -221,9 +240,9 @@ const MovieDetails = () => {
                     { movieComments.length >= 1 ? (
                         currentComments.map((comment)=>(
                             <div key={comment._id} className='commentContainer'>
-                                <div className="card text-dark bg-light mb-3">
+                                <div className="card text-dark bg-secondary mb-3">
                                     <div className="card-body">
-                                        <h5 className="card-title">{comment.name}</h5>
+                                        <h5 className="card-title">{comment.name || comment.userName}</h5>
                                         <hr></hr>
                                         <p className="card-text commentText movieDetailsP">{comment.text}</p>
                                         <hr></hr>

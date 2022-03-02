@@ -7,13 +7,19 @@
     flex-wrap: wrap;
     margin-bottom: 3rem;
     min-height: 370px;
+    gap: 1rem;
 }
 
 .cardCard {
-    min-height: 350px;
+    height: 350px;
     width: 185px;
     background-color: rgb(26 26 26) !important;
     align-items: center;
     text-align: center;
     cursor: pointer;
+    font-size: 1rem;
+}
+
+.home-card-body {
+    height: auto;
 }
