@@ -10,7 +10,7 @@
     display: flex;
     flex-direction: column;
     width: 80%;
-    text-align: left;
+    text-align: center;
 }
 
 .posterContainer {
@@ -125,6 +125,7 @@
 @media only screen and (min-width: 800px) {
     .titleContainer{
         width: 50%;
+        text-align: left;
     }
 
     .posterContainer {

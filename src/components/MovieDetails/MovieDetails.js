@@ -60,7 +60,6 @@ const MovieDetails = () => {
 
     // Get comments for movie
     const retrieveMovieComments = () => {
-        trackPromise(
             movieDataSrv.getMovieComments(id)
                 .then(response => {
                     setMovieComments(response.data);
@@ -68,7 +67,6 @@ const MovieDetails = () => {
                 .catch(e => {
                     console.log('Error at retrieveMovieComments(): ' + e);
                 })
-        )
     }
 
     // Paginate comments {
@@ -112,22 +110,30 @@ const MovieDetails = () => {
     
     // Leave comment
     const [userComment, setUserComment] = useState('');
+    // Disable submit comment button when true
+    const [isDisabled, setIsDisabled] = useState(false)
     const leaveComment = async (e) => {
         e.preventDefault();
+        setIsDisabled(true);
         if (!loggedIn) return alert('You can only comment if you are logged in');
         const validToken = await auth.loggedIn();
         if (validToken){
-            if (userComment.trim() === '') return alert('Comment is blank');
-            console.log('hi...');
+            if (userComment.trim() === '') return alert('Comment is blank'); setIsDisabled(false);
             movieDataSrv.postMovieComment(userComment, id).then(response => {
-                console.log(response);
+                if (response.status === 200) {
+                    // Clear everything and refresh comments
+                    setUserComment('');
+                    setMovieComments([]);
+                    retrieveMovieComments();
+                    e.target.value = '';
+                } else {
+                    alert('Something went wrong when posting comment')
+                }
             })
-            setUserComment('');
-            setMovieComments([]);
-            retrieveMovieComments();
         } else {
             alert('Something went wrong when posting comment')
         }
+        setIsDisabled(false);
     }
 
     // Show loading screen if promiseInProgress
@@ -206,7 +212,7 @@ const MovieDetails = () => {
                                 </p>
                         }
                         {
-                            movieDetails.fullplot != movieDetails.plot &&
+                            movieDetails.fullplot !== movieDetails.plot &&
                             <button className="btn btn-outline-success fullPlotButton" onClick={toggleFullPlot}>
                                 {fullPlotToggled ? 'Hide full plot' : 'Read full plot'}
                             </button>
@@ -224,11 +230,13 @@ const MovieDetails = () => {
                                 placeholder='Enter your comment here...'
                                 type='text' 
                                 onChange={(e) => setUserComment(e.target.value)}
+                                value={userComment}
                             />
                             <input
                                 type='submit'
                                 value='Submit Comment' 
                                 className="btn btn-outline-success"
+                                disabled={isDisabled}
                             />
                         </form>
                     )
