@@ -34,10 +34,11 @@ const Carousel = () => {
                 })
         )
     };
+    //<img className='glowSign' src={glowSign} alt='New Releases'></img>
 
     return (
         <div className='mainCarouselcontainer'>
-            <img className='glowSign' src={glowSign} alt='New Releases'></img>
+            <h1 className='homeTitle'>New Releases</h1>
             <div id="carouselExampleIndicators" className="carousel slide" data-bs-interval="false" data-bs-ride="carousel">
                 <ol className="carousel-indicators">
                     <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" className="active"></li>
@@ -49,7 +50,7 @@ const Carousel = () => {
                 <div className="carousel-inner">
                     {newMovies.map((movie, i) => (
                             <div key={movie._id} onClick={()=>navigate(`/moviedetails?id=${movie._id}`) } className={i === 0 ? "carousel-item active" : "carousel-item"} >
-                                <img className="d-block w-100" src={movie.poster} alt="Movie poster" />
+                                <img className="d-block w-100" tabIndex="0" src={movie.poster} alt={movie.title + " movie poster"} />
                             </div>
                         ))}
                 </div>

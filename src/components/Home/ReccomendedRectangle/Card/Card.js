@@ -21,13 +21,13 @@ const Card = (props) => {
     <div className='mainCardContainer'>
           <LoadingIndicator />
           {props.moviesArray.map((movie) => (
-              <div className="card cardCard" key={movie._id} onClick={()=>navigate(`/moviedetails?id=${movie._id}`)}>
-                  <img src={movie.poster} className="card-img-top cardImg" alt="Movie Poster" />
+              <button className="card cardCard" key={movie._id} tabIndex={0} onClick={()=>navigate(`/moviedetails?id=${movie._id}`)}>
+                  <img src={movie.poster} className="card-img-top cardImg" alt={ movie.title + " movie poster"} />
                   <div className="home-card-body">
                       <p className="card-text">{movie.title}</p>
                       <FontAwesomeIcon icon={faStar} inverse /> {movie.imdb.rating}
                   </div>
-              </div>
+              </button>
           ))}
         </div>
   )

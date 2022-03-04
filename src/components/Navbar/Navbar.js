@@ -25,7 +25,7 @@ const Navbar = () => {
     }
 
     return (
-            <nav className="navbar navbar-expand-md navbar-dark bg-dark">
+            <nav className="navbar navbar-expand-md navbar-dark">
                 <div className="container-fluid">
                     <a className="navbar-brand" onClick={() => navigate('/')}>MovieDB</a>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -62,7 +62,7 @@ const Navbar = () => {
                             onSubmit={handleSearchSubmit} 
                         >
                             <input 
-                                className="form-control me-2" 
+                                className=" navSearch form-control me-2" 
                                 type="search" 
                                 required
                                 placeholder="Search" 
@@ -71,7 +71,7 @@ const Navbar = () => {
                                 name='s'
                             />
                             <button 
-                                className="btn btn-outline-success"
+                                className="btn btn-outline-light"
                                 type='submit'
                             >
                                 Search

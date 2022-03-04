@@ -23,7 +23,18 @@
     width: 50%;
 }
 
+.carousel:hover {
+    border: white;
+    border: 1px;
+}
+
 .glowSign {
     max-width: 50%;
     min-width: 300px;
+}
+
+.homeTitle {
+    color: white;
+    font-style: italic;
+    font-size: clamp(2rem, 10vw, 8rem);
 }

@@ -1,3 +1,12 @@
 .nav-link:hover, .navbar-brand:hover {
     cursor: pointer;
 }
+
+.navbar {
+    background-color: rgba(0, 0, 0, 0.541);
+}
+
+.navbar-brand {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700;
+}

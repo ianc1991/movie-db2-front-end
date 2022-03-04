@@ -160,8 +160,8 @@ const MovieDetails = () => {
                         <div className="card-body">
                             <h5 className="card-title">Cast</h5>
                             <p className="card-text movieDetailsP">{
+                                !movieDetails.cast ? '(n/a)' :
                                 movieDetails.cast.map((castMember, i) => (
-                                    !movieDetails.cast ? '(n/a)' :
                                     // only adds ', ' if not the last item in the array or there isn't only one item
                                     i === movieDetails.cast.length - 1 || movieDetails.cast.length === 1 ? castMember : castMember + ', '
                                 ))}
@@ -172,8 +172,8 @@ const MovieDetails = () => {
                             <hr></hr>
                             <h5 className="card-title">Director(s)</h5>
                             <p className="card-text movieDetailsP">{
+                                !movieDetails.directors ? '(n/a)' :
                                 movieDetails.directors.map((director, i) => (
-                                    !movieDetails.directors ? '(n/a)' :
                                     i === movieDetails.directors.length - 1 || movieDetails.directors.length === 1 ? director : director + ', '
                                 ))}
                             </p>
