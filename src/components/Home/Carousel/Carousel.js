@@ -38,7 +38,7 @@ const Carousel = () => {
 
     return (
         <div className='mainCarouselcontainer'>
-            <h1 className='homeTitle'>New Releases</h1>
+            <h1 className='homeTitle'>NEW RELEASES</h1>
             <div id="carouselExampleIndicators" className="carousel slide" data-bs-interval="false" data-bs-ride="carousel">
                 <ol className="carousel-indicators">
                     <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" className="active"></li>

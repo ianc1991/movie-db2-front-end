@@ -35,6 +35,5 @@
 
 .homeTitle {
     color: white;
-    font-style: italic;
-    font-size: clamp(2rem, 10vw, 8rem);
+    font-size: clamp(2rem, 10vw, 7rem);
 }

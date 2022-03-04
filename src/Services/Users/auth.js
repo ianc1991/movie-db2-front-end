@@ -22,16 +22,23 @@ class AuthService {
         });
     }
 
-    logout(){
+    logout() {
         return http.get('/logout', {
             withCredentials: true
         })
     }
 
     // Check if logged in
-    loggedIn(){
+    loggedIn() {
         return http.get('/loggedIn', {
             withCredentials: true,
+        });
+    }
+
+    // Return user info
+    getUserInfo() {
+        return http.get('/userdata', {
+            withCredentials: true
         });
     }
 }

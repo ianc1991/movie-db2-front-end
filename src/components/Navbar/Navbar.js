@@ -13,8 +13,9 @@ const Navbar = () => {
 
     // Reads value from AuthContext to check if user is logged in
     const {loggedIn} = useContext(AuthContext);
+    const { userInfo } = useContext(AuthContext);
 
-    
+    // Search text state
     const [searchText, setSearchText] = useState("");
 
     const handleSearchText = (e) => {
@@ -53,13 +54,18 @@ const Navbar = () => {
                                 </li>
                                 )
                                 }
-                                {loggedIn === true && (
-                                    <li className="nav-item">
-                                        <LogoutBtn />
-                                    </li>
-                                )}
 
                         </ul>
+                        {loggedIn === true && (
+                            <div className='greetingContainer'>
+                                <span className='navGreeting'>
+                                    Hello, {userInfo.userName}!
+                                </span>
+                                <span className="nav-item logoutButton">
+                                    <LogoutBtn />
+                                </span>
+                            </div>
+                        )}
                         <form className="d-flex" 
                             onSubmit={handleSearchSubmit} 
                         >

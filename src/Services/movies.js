@@ -27,6 +27,14 @@ class MovieDataService {
         })
     }
 
+    // Delete movie comment
+    deleteMovieComment (commentId) {
+        return http.delete(`/comments/deletecomment/${commentId}`,
+        {
+            withCredentials: true
+        })
+    }
+
     // Get by search text
     getMoviesBySearchText(searchText, pageNumber) {
         if (pageNumber) return http.get(`/allmovies/${searchText}/${pageNumber}`);

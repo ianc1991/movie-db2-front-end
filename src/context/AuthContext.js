@@ -9,25 +9,30 @@ const AuthContext = createContext();
 
 function AuthContextProvider(props) {
     const [loggedIn, setLoggedIn] = useState(undefined);
+    const [userInfo, setUserInfo] = useState(undefined);
 
     async function getLoggedIn() {
-        // const loggedInRes = await axios.get('http://localhost:5000/users/api/loggedIn', {
-        //     withCredentials: true,
-        // });
-
         const loggedInRes = await auth.loggedIn();
 
         // data is the axios response body. returns true/false
         setLoggedIn(loggedInRes.data)
     }
 
+    async function getUserInfo() {
+        const userInfoResponse = await auth.getUserInfo();
+
+        // data is the axios response body. returns true/false
+        setUserInfo(userInfoResponse.data);
+    }
+
     useEffect(() => {
         getLoggedIn();
+        getUserInfo();
     }, []);
     
     // Any componenets in the AuthContext.Provider will be passed the value={}
     return (
-        <AuthContext.Provider value={{loggedIn, getLoggedIn}}>
+        <AuthContext.Provider value={{loggedIn, getLoggedIn, userInfo}}>
             {props.children}
         </AuthContext.Provider>
     )

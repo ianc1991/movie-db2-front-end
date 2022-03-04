@@ -10,3 +10,19 @@
     font-family: 'Oswald', sans-serif;
     font-weight: 700;
 }
+
+.logoutButton {
+    margin-right: 1rem;
+}
+
+.greetingContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.navGreeting {
+    color: white;
+    font-size: 1.2rem;
+}

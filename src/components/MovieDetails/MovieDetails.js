@@ -11,7 +11,7 @@ import { usePromiseTracker } from 'react-promise-tracker';
 import { trackPromise } from 'react-promise-tracker';
 // FontAwesome
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faStar, faCommentDots } from '@fortawesome/free-solid-svg-icons';
+import { faStar, faCommentDots, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { faImdb } from '@fortawesome/free-brands-svg-icons';
 // Assets
 import noImageAvailablePicture from '../../assets/noImage.png';
@@ -106,12 +106,14 @@ const MovieDetails = () => {
     const toggleFullPlot = () => setPlotToggle(!fullPlotToggled);
     
     // Reads value from AuthContext to check if user is logged in
-    const {loggedIn} = useContext(AuthContext);
+    const { loggedIn } = useContext(AuthContext);
+    const { userInfo } = useContext(AuthContext);
     
     // Leave comment
     const [userComment, setUserComment] = useState('');
     // Disable submit comment button when true
     const [isDisabled, setIsDisabled] = useState(false)
+
     const leaveComment = async (e) => {
         e.preventDefault();
         setIsDisabled(true);
@@ -121,7 +123,7 @@ const MovieDetails = () => {
             if (userComment.trim() === '') return alert('Comment is blank'); setIsDisabled(false);
             movieDataSrv.postMovieComment(userComment, id).then(response => {
                 if (response.status === 200) {
-                    // Clear everything and refresh comments
+                    // Clear comment state, reset and refresh comments
                     setUserComment('');
                     setMovieComments([]);
                     retrieveMovieComments();
@@ -134,6 +136,14 @@ const MovieDetails = () => {
             alert('Something went wrong when posting comment')
         }
         setIsDisabled(false);
+    }
+
+    // Delete Comment
+    const deleteComment = async(commentId) => {
+            movieDataSrv.deleteMovieComment(commentId).then(response => {
+                setMovieComments([]);
+                retrieveMovieComments();
+            })
     }
 
     // Show loading screen if promiseInProgress
@@ -254,6 +264,35 @@ const MovieDetails = () => {
                                         <hr></hr>
                                         <p className="card-text commentText movieDetailsP">{comment.text}</p>
                                         <hr></hr>
+                                        {
+                                            loggedIn && userInfo.userName === comment.userName ? (
+                                                <div>
+                                                    <button type='button' className='deleteCommentButton btn btn-danger' data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                                        <FontAwesomeIcon icon={faTrashAlt} />
+                                                    </button>
+                                                    <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                        <div className="modal-dialog modal-dialog-centered">
+                                                            <div className="modal-content">
+                                                                <div className="modal-header">
+                                                                    <h5 className="modal-title" id="exampleModalLabel">ATTENTION</h5>
+                                                                    <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                </div>
+                                                                <div className="modal-body">
+                                                                    Are you sure you want to delete this comment?
+                                                                </div>
+                                                                <div className="modal-footer">
+                                                                    <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                                                    <button type="button" className="btn btn-danger" data-bs-dismiss="modal" onClick={() => deleteComment(comment._id)}>Delete Comment</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            )
+                                            :
+                                            // FontAwesome seems to leave behind a 0 when conditional. Using a ternary to avoid.
+                                            <></>
+                                        }
                                     </div>
                                 </div>
                             </div>
