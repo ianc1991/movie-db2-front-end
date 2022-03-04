@@ -1,6 +1,8 @@
 import './navbar.css'
 import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import AuthContext from '../../context/AuthContext';
 import LogoutBtn from '../Logout/LogoutBtn';
 
@@ -65,7 +67,7 @@ const Navbar = () => {
                                 className=" navSearch form-control me-2" 
                                 type="search" 
                                 required
-                                placeholder="Search" 
+                                placeholder="Search..." 
                                 aria-label="Search"
                                 onChange={handleSearchText}
                                 name='s'
@@ -74,7 +76,7 @@ const Navbar = () => {
                                 className="btn btn-outline-light"
                                 type='submit'
                             >
-                                Search
+                                <FontAwesomeIcon icon={faSearch} />
                             </button>
                         </form>
                     </div>
