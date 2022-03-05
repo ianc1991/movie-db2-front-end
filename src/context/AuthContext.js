@@ -13,26 +13,29 @@ function AuthContextProvider(props) {
 
     async function getLoggedIn() {
         const loggedInRes = await auth.loggedIn();
-
         // data is the axios response body. returns true/false
         setLoggedIn(loggedInRes.data)
     }
 
     async function getUserInfo() {
-        const userInfoResponse = await auth.getUserInfo();
-
-        // data is the axios response body. returns true/false
-        setUserInfo(userInfoResponse.data);
+        if (loggedIn) {
+            const userInfoResponse = await auth.getUserInfo();
+            // data is the axios response body. returns true/false
+            setUserInfo(userInfoResponse.data);
+        } else setUserInfo(undefined);
     }
 
     useEffect(() => {
         getLoggedIn();
-        getUserInfo();
     }, []);
-    
+
+    // Get user info again when loggedIn state changes. If false, then resets userInfo.
+    useEffect(() => {
+        getUserInfo();
+    }, [loggedIn]);
     // Any componenets in the AuthContext.Provider will be passed the value={}
     return (
-        <AuthContext.Provider value={{loggedIn, getLoggedIn, userInfo}}>
+        <AuthContext.Provider value={{loggedIn, getLoggedIn, userInfo, getUserInfo}}>
             {props.children}
         </AuthContext.Provider>
     )

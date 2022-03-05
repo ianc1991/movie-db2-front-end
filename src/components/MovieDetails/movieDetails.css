@@ -87,6 +87,16 @@
     width: 80%;
 }
 
+.commentTitleContainer {
+    display: flex;
+    align-items: flex-end;
+    gap: 1rem;
+}
+
+.commentTitleContainer h5, .commentTitleContainer h6 {
+    margin: 0;
+}
+
 .commentTextInput {
     width: 100%;
     height: 80px;

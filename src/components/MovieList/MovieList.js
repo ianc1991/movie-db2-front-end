@@ -126,14 +126,17 @@ const MovieList = () => {
             </thead>
             <tbody className='movieListTableBody'>
                 {
-                    movieList.map((movie, i) => (
-                        <tr className='movieListTableRow' key={i} onClick={() => navigate(`/moviedetails?id=${movie._id}`)}>
-                            <td className='titleRow'><div className='imageTitleContainer'><img className='moviePoster' src={movie.poster || noImageAvailablePicture} onError={handleImgError} alt={movie.title + ' Poster'}></img> {movie.title}</div></td>
-                            <td><div className='imageTitleContainer'>
-                                <p><FontAwesomeIcon icon={faStar} inverse /> {movie.imdb.rating}</p></div>
-                            </td>
-                            <td><div className='imageTitleContainer'>{movie.year}</div></td>
-                            <td><div className='imageTitleContainer'>{movie.type}</div></td>
+                    movieList.map((movie) => (
+                        <tr className='movieListTableRow' key={movie._id} onClick={() => navigate(`/moviedetails?id=${movie._id}`)}>
+                                <td className='titleRow'>
+                                    <div className='imageTitleContainer'><img className='moviePoster' src={movie.poster || noImageAvailablePicture} onError={handleImgError} alt={movie.title + ' Poster'}></img> 
+                                    <button className='tableButton'>{movie.title}</button></div>
+                                </td>
+                                <td><div className='imageTitleContainer'>
+                                    <p className='ratingListContainer'><FontAwesomeIcon icon={faStar} inverse /> {movie.imdb.rating}</p></div>
+                                </td>
+                                <td><div className='imageTitleContainer'>{movie.year}</div></td>
+                                <td><div className='imageTitleContainer'>{movie.type}</div></td>
                         </tr>
                     ))
                 }

@@ -260,12 +260,15 @@ const MovieDetails = () => {
                             <div key={comment._id} className='commentContainer'>
                                 <div className="card text-dark bg-secondary mb-3">
                                     <div className="card-body">
-                                        <h5 className="card-title">{comment.name || comment.userName}</h5>
+                                        <div className="commentTitleContainer">
+                                            <h5 className="card-title">{comment.name || comment.userName}</h5>
+                                            <h6>{comment.date ? comment.date.substring(0, 10): "Date not found"}</h6>
+                                        </div>
                                         <hr></hr>
                                         <p className="card-text commentText movieDetailsP">{comment.text}</p>
                                         <hr></hr>
                                         {
-                                            loggedIn && userInfo.userName === comment.userName ? (
+                                            loggedIn && userInfo && userInfo.userName === comment.userName ? (
                                                 <div>
                                                     <button type='button' className='deleteCommentButton btn btn-danger' data-bs-toggle="modal" data-bs-target="#exampleModal">
                                                         <FontAwesomeIcon icon={faTrashAlt} />
