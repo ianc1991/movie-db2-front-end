@@ -7,15 +7,15 @@ import { usePromiseTracker } from 'react-promise-tracker';
 
 const Card = (props) => {
 
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
-    const LoadingIndicator = props => {
-        const { promiseInProgress } = usePromiseTracker();
-        return (
-          promiseInProgress && 
-          <Loading />
-        );  
-      }
+  const LoadingIndicator = props => {
+      const { promiseInProgress } = usePromiseTracker();
+      return (
+        promiseInProgress && 
+        <Loading />
+      );  
+    }
 
   return (
     <div className='mainCardContainer'>

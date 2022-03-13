@@ -1,9 +1,10 @@
-import glowSign from '../../../assets/NewReleases.png';
 import './carousel.css';
 import movieDataSrv from '../../../Services/movies';
 import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import { trackPromise } from 'react-promise-tracker';
+import Loading from '../../Loading/Loading';
+import { usePromiseTracker } from 'react-promise-tracker';
 
 
 // TODO - Pictures resize a tiny bit when changing slides. Mostly fixed, but could be tweaked more.
@@ -20,9 +21,18 @@ const Carousel = () => {
         retrieveNewMovies();
     }, []);
 
+    const LoadingIndicator = () => {
+        const { promiseInProgress } = usePromiseTracker();
+        return (
+          promiseInProgress && 
+          <div>
+              <Loading />
+          </div>
+        );  
+      }
+
     // Putting string in getNew wasn't working...
     const five = "5";
-
     const retrieveNewMovies = () => {
         trackPromise(
             movieDataSrv.getNew(five)
@@ -34,11 +44,11 @@ const Carousel = () => {
                 })
         )
     };
-    //<img className='glowSign' src={glowSign} alt='New Releases'></img>
 
     return (
         <div className='mainCarouselcontainer'>
             <h1 className='homeTitle'>NEW RELEASES</h1>
+            <LoadingIndicator />
             <div id="carouselExampleIndicators" className="carousel slide" data-bs-interval="false" data-bs-ride="carousel">
                 <ol className="carousel-indicators">
                     <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" className="active"></li>
