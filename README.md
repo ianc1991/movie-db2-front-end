@@ -1,8 +1,8 @@
 # MovieDB
 
-A curent work in progress MERN project using the default MongoDB Atlas Mflix database. 
+A MERN project using the default MongoDB Atlas Mflix database.
 
-This was my first real step into backend programming. I found setting up the JSON Web Token to be the most difficult part so far. I spent a fair amount of time on Postman sending requests again and again until I was able to get it to work the way I needed. For the React front end, I'm using Axios for my HTTP requests.
+Hosted here: https://moviedb-b069f.web.app/
 
 ### Current capabilities
 
