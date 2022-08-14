@@ -21,6 +21,7 @@
 .carousel {
     margin: 0 auto;
     width: 50%;
+    min-height: 300px;
 }
 
 .carousel:hover {
