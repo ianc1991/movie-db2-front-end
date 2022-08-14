@@ -1,5 +1,4 @@
 .mainCardContainer {
-    all: unset;
     display: flex;
     color: white;
     justify-content: space-around;
@@ -14,7 +13,7 @@
     color: white;
     height: 350px;
     width: 185px;
-    background-color: rgb(26 26 26) !important;
+    background-color: rgba(26, 26, 26, 0.685) !important;
     align-items: center;
     text-align: center;
     cursor: pointer;
@@ -28,3 +27,44 @@
 .cardImg {
     max-height: 340px;
 }
+
+/* FLIP CARD BEGIN */
+.flipCard {
+  background-color: transparent;
+  perspective: 1000px;
+}
+
+.cardInner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+}
+
+.flipCard:hover .cardInner {
+  transform: rotateY(180deg);
+}
+
+.cardBack {
+  position: absolute;
+  top: 0;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding: .5em;
+  cursor: pointer;
+}
+
+* {
+  -webkit-backface-visibility: hidden; /* Safari */
+  backface-visibility: hidden;
+}
+
+.cardBack {
+  background-color: rgba(26, 26, 26, 0.589);
+  transform: rotateY(180deg);
+  font-size: 1.2em;
+}
+/* FLIP CARD END */
